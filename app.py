@@ -1,4 +1,4 @@
-from cs50 import SQL
+import sqlite3
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
 import os
@@ -7,8 +7,7 @@ import requests
 
 app = Flask(__name__)
 
-db = SQL("sqlite:///weather.db")
-
+db = sqlite3("sqlite:///weather.db")
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -32,7 +31,6 @@ def location():
         history = db.execute("SELECT * FROM cities ORDER BY id DESC")
         return render_template("locations.html", history=history)
 
-
     if request.method == "POST":
 
         # get location from input
@@ -52,11 +50,11 @@ def location():
         history = db.execute("SELECT * FROM cities ORDER BY id DESC")
 
         if not location:
-            return render_template("locations.html", message=">>>Enter location<<<",history=history)
+            return render_template("locations.html", message=">>>Enter location<<<", history=history)
         else:
-             return render_template("locations.html",history = history)
+            return render_template("locations.html", history=history)
     else:
-        return render_template("locations.html",history=history)
+        return render_template("locations.html", history=history)
 
 
 def get_location(location):
@@ -69,7 +67,7 @@ def get_location(location):
 
 def store_location_to_SQL(data):
 
-# store location data in SQL
+    # store location data in SQL
     try:
         weather = data["weather"][0]["main"]
         description = data["weather"][0]["description"]
@@ -106,5 +104,7 @@ def delete(value):
     return new_base
 
 # .env file configuration
+
+
 def configure():
     load_dotenv()
