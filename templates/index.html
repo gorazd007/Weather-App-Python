@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block main %}
+
+<div class="alert alert-primary mt-3 mb-4 d-flex justify-content-center" style="width: 65%; margin: auto;">
+    Here you can get a weather info for a chosen location. Hit a&nbsp;<b>+</b>&nbsp;button.
+</div>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col d-flex justify-content-center mb-3">
+            <div class="card bg-primary shadow" style="width: 22rem;">
+                <div class="card-body text-light">
+                    <div class="row">
+                        <div class="coll d-flex justify-content-between">
+                            <h4 class="card-title">New York</h4>
+                            <div class="zoom-in">
+                                <img src="https://flagcdn.com/36x27/us.png" alt="flag">
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle mb-3 mt-1">Sunny</h6>
+                    <div class="zoom-in rounded">
+                        <img class="card-img-top" src="/static/01d.jpg" alt="Weather image {{icon}}">
+                    </div>
+                    <h6 class="card-text mt-3 mb-4">Description: Sunny</h6>
+                    <div class="row mb-3">
+                        <div class="coll d-flex justify-content-between">
+                            <h5 class="card-title">Temp: 28&#176;C</h5>
+                            <div>
+                                <h5>Feels like: 30&#176;C</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="coll d-flex justify-content-between">
+                            <div class="d-flex">
+                                <h5 class="card-title">Wind: 4km/h&nbsp;&nbsp;&nbsp;</h5>
+                                <h5 class="card-title" style="transform: rotate(120deg); font-size: 25px;">&#8593;</h5>
+                            </div>
+                            <div>
+                                <h5>Humidity: 81%</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="card-link"><button class="btn btn-primary border-light">Remove</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center mb-3">
+            <div class="card bg-primary shadow" style="width: 22rem;">
+                <div class="card-body text-light">
+                    <div class="row">
+                        <div class="coll d-flex justify-content-between">
+                            <h4 class="card-title">London</h4>
+                            <div class="zoom-in">
+                                <img src="https://flagcdn.com/36x27/gb.png" alt="flag">
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle mb-3 mt-1">Rain</h6>
+                    <div class="zoom-in rounded">
+                        <img class="card-img-top" src="/static/09d.jpg" alt="Weather image {{icon}}">
+                    </div>
+                    <h6 class="card-text mt-3 mb-4">Description: Shower rain</h6>
+                    <div class="row mb-3">
+                        <div class="coll d-flex justify-content-between">
+                            <h5 class="card-title">Temp: 18&#176;C</h5>
+                            <div>
+                                <h5>Feels like: 17&#176;C</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="coll d-flex justify-content-between">
+                            <div class="d-flex">
+                                <h5 class="card-title">Wind: 6km/h&nbsp;&nbsp;&nbsp;</h5>
+                                <h5 class="card-title" style="transform: rotate(90deg); font-size: 25px;">&#8593;</h5>
+                            </div>
+                            <div>
+                                <h5>Humidity: 93%</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="card-link"><button class="btn btn-primary border-light">Remove</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center mb-3">
+            <div class="card bg-primary shadow" style="width: 22rem;">
+                <div class="card-body text-light">
+                    <div class="row">
+                        <div class="coll d-flex justify-content-between">
+                            <h4 class="card-title">Tokio</h4>
+                            <div class="zoom-in">
+                                <img src="https://flagcdn.com/36x27/jp.png" alt="flag">
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle mb-3 mt-1">Clouds</h6>
+                    <div class="zoom-in rounded">
+                        <img class="card-img-top" src="/static/04n.jpg" alt="Weather image {{icon}}">
+                    </div>
+                    <h6 class="card-text mt-3 mb-4">Description: Broken clouds</h6>
+                    <div class="row mb-3">
+                        <div class="coll d-flex justify-content-between">
+                            <h5 class="card-title">Temp: 21&#176;C</h5>
+                            <div>
+                                <h5>Feels like: 21&#176;C</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="coll d-flex justify-content-between">
+                            <div class="d-flex">
+                                <h5 class="card-title">Wind: 2km/h&nbsp;&nbsp;&nbsp;</h5>
+                                <h5 class="card-title" style="transform: rotate(120deg); font-size: 25px;">&#8593;</h5>
+                            </div>
+                            <div>
+                                <h5>Humidity: 76%</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="card-link"><button class="btn btn-primary border-light">Remove</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
