@@ -11,7 +11,7 @@ App is made in Python for backend, SQL to store a locations and Flask for fronte
 
 # instalation
 
-I used Python3, Flask, Bootstrap, Sqlite3 and .env file for an API_KEY.
+I used Python3, Flask, Bootstrap, Sqlite3, is included in Python3, and .env file for an API_KEY.
 
 
 
