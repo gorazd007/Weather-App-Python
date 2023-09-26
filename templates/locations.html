@@ -7,7 +7,7 @@ Locations
 {% block main %}
 <div class="container-fluid">
   <form action="/location" method="post" class="d-flex justify-content-center">
-    <input autocomplete="off" autofocus onfocus="this.value='' style=" height:36px; border-radius: 3px; font-size:
+    <input autocomplete="off" autofocus onfocus="this.value=''" style=" height:36px; border-radius: 3px; font-size:
       18px;" class="mt-1" name="location" placeholder="Enter city" type="text">
     <button class="btn btn-primary mx-1 mt-1" type="submit">Search</button>
   </form>
@@ -23,42 +23,42 @@ Locations
         <div class="card-body text-light">
           <div class="row">
             <div class="coll d-flex justify-content-between">
-              <h4 class="card-title">{{ i['city'] }}</h4>
+              <h4 class="card-title">{{ i[10] }}</h4>
               <div>
                 <div class="zoom-in">
-                  <img src="https://flagcdn.com/36x27/{{ i['country'] }}.png" alt="country flag">
+                  <img src="https://flagcdn.com/36x27/{{ i[9] }}.png" alt="country flag">
                 </div>
               </div>
             </div>
           </div>
-          <h6 class="card-subtitle mb-3 mt-1">{{ i['weather'] }}</h6>
+          <h6 class="card-subtitle mb-3 mt-1">{{ i[1] }}</h6>
           <div class="zoom-in rounded">
-            <img class="card-img-top" style="width: 320px; height: 180px;" src="/static/{{i['icon']}}.jpg"
+            <img class="card-img-top" style="width: 320px; height: 180px;" src="/static/{{i[3]}}.jpg"
               alt="Weather image {{icon}}">
           </div>
-          <h6 class="card-text mt-3 mb-4">Description: {{ i['description'] }}</h6>
+          <h6 class="card-text mt-3 mb-4">Description: {{ i[2] }}</h6>
           <div class="row mb-3">
             <div class="coll d-flex justify-content-between">
-              <h5 class="card-title">Temp: {{ i['temperature'] }}&#176;C</h5>
+              <h5 class="card-title">Temp: {{ i[4] }}&#176;C</h5>
               <div>
-                <h5>Feels like: {{ i['temperature_feels_like'] }}&#176;C</h5>
+                <h5>Feels like: {{ i[5] }}&#176;C</h5>
               </div>
             </div>
           </div>
           <div class="row mb-3">
             <div class="coll d-flex justify-content-between">
               <div class="d-flex">
-                <h5 class="card-title">Wind: {{ i['wind_speed'] }}km/h&nbsp;&nbsp;&nbsp;</h5>
-                <h5 class="card-title" style="transform: rotate({{i['wind_direction']}}deg); font-size: 25px;">&#8593;
+                <h5 class="card-title">Wind: {{ i[7] }}km/h&nbsp;&nbsp;&nbsp;</h5>
+                <h5 class="card-title" style="transform: rotate({{i[8]}}deg); font-size: 25px;">&#8593;
                 </h5>
               </div>
               <div>
-                <h5>Humidity: {{ i['humidity'] }}%</h5>
+                <h5>Humidity: {{ i[6] }}%</h5>
               </div>
             </div>
           </div>
           <form action='/remove' method='post'>
-            <input type=hidden name="remove" value="{{ i['id'] }}">
+            <input type=hidden name="remove" value="{{ i[0] }}">
             <button class='btn btn-primary border-light' type='delete'>Remove</button>
           </form>
         </div>

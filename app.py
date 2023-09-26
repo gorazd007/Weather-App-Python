@@ -7,7 +7,26 @@ import requests
 
 app = Flask(__name__)
 
-db = sqlite3("sqlite:///weather.db")
+
+conn = sqlite3.connect("weather.db", check_same_thread=False)
+db = conn.cursor()
+
+db.execute(
+    '''CREATE TABLE IF NOT EXISTS cities ( 
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    weather TEXT NOT NULL, 
+    description TEXT NOT NULL, 
+    icon TEXT NOT NULL, 
+    temperature NUMERIC NOT NULL, 
+    temperature_feels_like NUMERIC NOT NULL, 
+    humidity NUMERIC NOT NULL, 
+    wind_speed NUMERIC NOT NULL, 
+    wind_direction NUMERIC NOT NULL, 
+    country TEXT NOT NULL, 
+    city TEXT NOT NULL)'''
+)
+conn.commit()
+# db.close()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -27,8 +46,12 @@ def remove():
 @app.route("/location", methods=["GET", "POST"])
 def location():
     configure()
+
     if request.method == "GET":
-        history = db.execute("SELECT * FROM cities ORDER BY id DESC")
+        db = conn.cursor()
+        db.execute("SELECT * FROM cities ORDER BY id DESC")
+        history = db.fetchall()
+        # db.close()
         return render_template("locations.html", history=history)
 
     if request.method == "POST":
@@ -40,14 +63,21 @@ def location():
         data = get_location(location)
 
         # get stored locations from SQL
-        history = db.execute("SELECT * FROM cities ORDER BY id DESC")
+        db = conn.cursor()
+        db.execute("SELECT * FROM cities ORDER BY id DESC")
+        history = db.fetchall()
+
+        # db.close()
 
         # display message for not valid city
         if (data['cod'] == '404'):
             return render_template("locations.html", message=">>>Not a valid city<<<", history=history)
 
         store_location_to_SQL(data)
-        history = db.execute("SELECT * FROM cities ORDER BY id DESC")
+        db = conn.cursor()
+        db.execute("SELECT * FROM cities ORDER BY id DESC")
+        history = db.fetchall()
+        # db.close()
 
         if not location:
             return render_template("locations.html", message=">>>Enter location<<<", history=history)
@@ -59,7 +89,7 @@ def location():
 
 def get_location(location):
     response = requests.get(
-        f"https://api.openweathermap.org/data/2.5/weather?q={location}&units=metric&appid={os.getenv('apiKey')}"
+        f"https://api.openweathermap.org/data/2.5/weather?q={location}&units=metric&appid={os.getenv('API_KEY')}"
     )
     data = response.json()
     return data
@@ -80,27 +110,39 @@ def store_location_to_SQL(data):
         country = data["sys"]["country"].lower()
         city = data["name"]
 
+        db = conn.cursor()
         db.execute(
-            "INSERT INTO cities (weather, description, icon, temperature, temperature_feels_like, humidity, wind_speed, wind_direction, country, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            weather,
-            description,
-            icon,
-            temperature,
-            temperature_feels_like,
-            humidity,
-            wind_speed,
-            wind_direction,
-            country,
-            city,
+            '''INSERT INTO cities (
+            weather, description, icon, temperature, temperature_feels_like, humidity, wind_speed, wind_direction, country, city
+            ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''',
+            (weather,
+             description,
+             icon,
+             temperature,
+             temperature_feels_like,
+             humidity,
+             wind_speed,
+             wind_direction,
+             country,
+             city)
         )
+        conn.commit()
+        # db.close()
         return
-    except:
+    except KeyError as e:
+        conn.rollback()
         return render_template("locations.html", message=">>>Not a valid city<<<")
 
 
 def delete(value):
+    db = conn.cursor()
     db.execute("DELETE FROM cities WHERE id = ?", value)
-    new_base = db.execute("SELECT * FROM cities ORDER BY id DESC")
+    conn.commit()
+    db.execute("SELECT * FROM cities ORDER BY id DESC")
+    new_base = db.fetchall()
+    # db.close()
     return new_base
 
 # .env file configuration
@@ -108,3 +150,6 @@ def delete(value):
 
 def configure():
     load_dotenv()
+
+
+# conn.close()
