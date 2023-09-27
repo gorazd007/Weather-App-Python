@@ -26,7 +26,6 @@ db.execute(
     city TEXT NOT NULL)'''
 )
 conn.commit()
-# db.close()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -67,8 +66,6 @@ def location():
         db.execute("SELECT * FROM cities ORDER BY id DESC")
         history = db.fetchall()
 
-        # db.close()
-
         # display message for not valid city
         if (data['cod'] == '404'):
             return render_template("locations.html", message=">>>Not a valid city<<<", history=history)
@@ -77,7 +74,6 @@ def location():
         db = conn.cursor()
         db.execute("SELECT * FROM cities ORDER BY id DESC")
         history = db.fetchall()
-        # db.close()
 
         if not location:
             return render_template("locations.html", message=">>>Enter location<<<", history=history)
@@ -129,7 +125,7 @@ def store_location_to_SQL(data):
              city)
         )
         conn.commit()
-        # db.close()
+
         return
     except KeyError as e:
         conn.rollback()
@@ -142,14 +138,9 @@ def delete(value):
     conn.commit()
     db.execute("SELECT * FROM cities ORDER BY id DESC")
     new_base = db.fetchall()
-    # db.close()
+
     return new_base
 
 # .env file configuration
-
-
 def configure():
     load_dotenv()
-
-
-# conn.close()
