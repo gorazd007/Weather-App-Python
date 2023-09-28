@@ -50,7 +50,6 @@ def location():
         db = conn.cursor()
         db.execute("SELECT * FROM cities ORDER BY id DESC")
         history = db.fetchall()
-        # db.close()
         return render_template("locations.html", history=history)
 
     if request.method == "POST":
@@ -134,7 +133,7 @@ def store_location_to_SQL(data):
 
 def delete(value):
     db = conn.cursor()
-    db.execute("DELETE FROM cities WHERE id = ?", value)
+    db.execute("DELETE FROM cities WHERE id = ?", (value,))
     conn.commit()
     db.execute("SELECT * FROM cities ORDER BY id DESC")
     new_base = db.fetchall()
